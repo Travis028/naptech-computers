@@ -31,12 +31,12 @@ export default function App() {
   ];
 
   const wifiPricing = [
-    { time: '30 Minutes', price: 'KSh 30', icon: Clock },
-    { time: '1 Hour', price: 'KSh 50', icon: Clock, popular: true },
-    { time: '2 Hours', price: 'KSh 90', icon: Clock },
-    { time: '5 Hours', price: 'KSh 200', icon: Zap },
-    { time: 'Full Day', price: 'KSh 350', icon: TrendingUp, popular: true },
-    { time: 'Weekly Pass', price: 'KSh 1,500', icon: Trophy }
+    { time: '30 Minutes', price: 'KSh 10', icon: Clock },
+    { time: '1 Hour', price: 'KSh 20', icon: Clock, popular: true },
+    { time: '2 Hours', price: 'KSh 40', icon: Clock },
+    { time: '5 Hours', price: 'KSh 100', icon: Zap },
+    { time: 'Full Day', price: 'KSh 200', icon: TrendingUp, popular: true },
+    { time: 'Weekly Pass', price: 'KSh 1,000', icon: Trophy }
   ];
 
   const courseModules = [
@@ -57,10 +57,10 @@ export default function App() {
   ];
 
   const testimonials = [
-    { name: 'John Kamau', rating: 5, text: 'Best computer training in Nairobi! The instructors are patient and knowledgeable.' },
-    { name: 'Mary Achieng', rating: 5, text: 'Completed my course in 3 months. Now I can confidently use computers at work!' },
-    { name: 'Peter Mwangi', rating: 5, text: 'Fast WiFi and affordable prices. I come here daily for my online work.' },
-    { name: 'Grace Njeri', rating: 4, text: 'Great learning environment. The KSh 4,500 course is worth every shilling!' }
+    { name: 'Natasha Otieno', rating: 5, text: 'Best computer training in Nairobi! The instructors are patient and knowledgeable.' },
+    { name: 'macreen otieno', rating: 5, text: 'Completed my course in 3 months. Now I can confidently use computers at work!' },
+    { name: 'kerina ', rating: 5, text: 'Fast WiFi and affordable prices. I come here daily for my online work.' },
+    { name: 'levis otieno', rating: 4, text: 'Great learning environment. The KSh 4,500 course is worth every shilling!' }
   ];
 
   const scrollToSection = (section) => {
