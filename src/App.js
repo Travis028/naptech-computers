@@ -51,7 +51,9 @@ export default function App() {
     'Social Media Basics',
     'Computer Maintenance',
     'File Management',
-    'Practical Hands-on Projects'
+    'Practical Hands-on Projects',
+    'Cybersecurity Essentials',
+    'Data Analysis and Visualization'
   ];
 
   const testimonials = [
@@ -191,7 +193,7 @@ export default function App() {
           
           <h1 className="text-5xl md:text-7xl font-bold mb-6">
             <span className="bg-gradient-to-r from-yellow-400 via-orange-400 to-red-500 bg-clip-text text-transparent">
-              NAPTECH COMPUTERS
+              NAPTECH COMPUTER TRAINING CENTER
             </span>
           </h1>
           <p className="text-xl md:text-2xl text-gray-200 mb-4 max-w-3xl mx-auto">
@@ -312,7 +314,7 @@ export default function App() {
 
           <div className="grid md:grid-cols-2 gap-8 mb-12">
             <div className="bg-gradient-to-br from-indigo-900 to-purple-900 p-8 rounded-xl border border-indigo-700">
-              <h3 className="text-2xl font-bold mb-6 text-yellow-400">What You'll Learn:</h3>
+              <h3 className="text-2xl font-bold mb-6 text-yellow-400">Our Programs Include:</h3>
               <div className="grid gap-3">
                 {courseModules.map((module, idx) => (
                   <div key={idx} className="flex items-start space-x-3">
@@ -320,6 +322,11 @@ export default function App() {
                     <span className="text-gray-200">{module}</span>
                   </div>
                 ))}
+              </div>
+              <div className="mt-6 p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
+                <p className="text-gray-300 text-sm leading-relaxed">
+                  Our experienced instructors use a hands-on approach to teaching, ensuring that students not only learn theoretical concepts but also gain practical experience. We offer flexible scheduling options, including evening and weekend classes, to accommodate busy lifestyles.
+                </p>
               </div>
             </div>
 
@@ -358,6 +365,9 @@ export default function App() {
           </div>
 
           <div className="text-center">
+            <p className="text-xl text-gray-300 mb-6">
+              Join us at NAPTECH Computer Training Center and take the first step towards enhancing your computer skills and advancing your career. Enroll today and unlock your potential.
+            </p>
             <button 
               onClick={() => setShowEnrollForm(true)}
               className="bg-gradient-to-r from-yellow-500 to-orange-600 px-12 py-4 rounded-lg font-bold text-xl hover:shadow-lg hover:shadow-yellow-500/50 transition-all transform hover:scale-105 text-indigo-950"
