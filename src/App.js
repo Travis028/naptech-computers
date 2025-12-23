@@ -349,7 +349,7 @@ export default function App() {
                 <h3 className="text-xl font-bold mb-4 text-yellow-400">Class Schedule:</h3>
                 <div className="space-y-2 text-gray-300">
                   <p>📅 Monday - Friday: 8AM - 6PM</p>
-                  <p>📅 Saturday: 9AM - 4PM</p>
+                  <p>📅 Sunday: 9AM - 4PM</p>
                   <p>⏰ Morning & Evening batches available</p>
                   <p>👥 Small class sizes (Max 15 students)</p>
                 </div>
@@ -540,7 +540,7 @@ export default function App() {
                   <MapPin className="w-6 h-6 text-yellow-400 flex-shrink-0 mt-1" />
                   <div>
                     <h3 className="font-bold mb-1 text-yellow-400">Location</h3>
-                    <p className="text-gray-300">Nairobi CBD<br />Tom Mboya Street<br />Next to Afya Centre</p>
+                    <p className="text-gray-300">Rongo, Migori<br />Next to Koluoch</p>
                   </div>
                 </div>
                 
@@ -548,7 +548,7 @@ export default function App() {
                   <Clock className="w-6 h-6 text-yellow-400 flex-shrink-0 mt-1" />
                   <div>
                     <h3 className="font-bold mb-1 text-yellow-400">Operating Hours</h3>
-                    <p className="text-gray-300">Mon-Fri: 7AM - 8PM<br />Saturday: 8AM - 6PM<br />Sunday: 9AM - 5PM</p>
+                    <p className="text-gray-300">Mon-Fri: 7AM - 8PM<br />Sunday: 9AM - 5PM</p>
                   </div>
                 </div>
                 
@@ -556,7 +556,7 @@ export default function App() {
                   <Phone className="w-6 h-6 text-yellow-400 flex-shrink-0 mt-1" />
                   <div>
                     <h3 className="font-bold mb-1 text-yellow-400">Call Us</h3>
-                    <p className="text-gray-300">+254 712 345 678<br />+254 733 456 789</p>
+                    <p className="text-gray-300">+254 258 247 29<br />+254 269 368 75</p>
                   </div>
                 </div>
                 
@@ -564,7 +564,7 @@ export default function App() {
                   <Mail className="w-6 h-6 text-yellow-400 flex-shrink-0 mt-1" />
                   <div>
                     <h3 className="font-bold mb-1 text-yellow-400">Email</h3>
-                    <p className="text-gray-300">info@naptechcomputers.co.ke<br />training@naptechcomputers.co.ke</p>
+                    <p className="text-gray-300">naptechcomputers80@gmail.com</p>
                   </div>
                 </div>
               </div>
