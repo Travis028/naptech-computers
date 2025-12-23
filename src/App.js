@@ -193,7 +193,7 @@ export default function App() {
           
           <h1 className="text-5xl md:text-7xl font-bold mb-6">
             <span className="bg-gradient-to-r from-yellow-400 via-orange-400 to-red-500 bg-clip-text text-transparent">
-              NAPTECH COMPUTER TRAINING CENTER
+              NAPTECH COMPUTERS
             </span>
           </h1>
           <p className="text-xl md:text-2xl text-gray-200 mb-4 max-w-3xl mx-auto">
@@ -366,7 +366,7 @@ export default function App() {
 
           <div className="text-center">
             <p className="text-xl text-gray-300 mb-6">
-              Join us at NAPTECH Computer Training Center and take the first step towards enhancing your computer skills and advancing your career. Enroll today and unlock your potential.
+              Join us at NAPTECH Computers and take the first step towards enhancing your computer skills and advancing your career. Enroll today and unlock your potential.
             </p>
             <button 
               onClick={() => setShowEnrollForm(true)}
