@@ -57,7 +57,7 @@ export default function App() {
   ];
 
   const testimonials = [
-    { name: 'Natasha Otieno', rating: 5, text: 'Best computer training in Nairobi! The instructors are patient and knowledgeable.' },
+    { name: 'Natasha Otieno', rating: 5, text: 'Best computer training in Migori! The instructors are patient and knowledgeable.' },
     { name: 'macreen otieno', rating: 5, text: 'Completed my course in 3 months. Now I can confidently use computers at work!' },
     { name: 'kerina ', rating: 5, text: 'Fast WiFi and affordable prices. I come here daily for my online work.' },
     { name: 'levis otieno', rating: 4, text: 'Great learning environment. The KSh 4,500 course is worth every shilling!' }
@@ -221,7 +221,7 @@ export default function App() {
           {/* Quick Stats */}
           <div className="grid grid-cols-3 gap-4 max-w-2xl mx-auto mt-12">
             <div className="bg-indigo-900/50 p-4 rounded-lg border border-indigo-700">
-              <div className="text-3xl font-bold text-yellow-400">500+</div>
+              <div className="text-3xl font-bold text-yellow-400">100+</div>
               <div className="text-sm text-gray-300">Students Trained</div>
             </div>
             <div className="bg-indigo-900/50 p-4 rounded-lg border border-indigo-700">
@@ -566,7 +566,7 @@ export default function App() {
                   <Phone className="w-6 h-6 text-yellow-400 flex-shrink-0 mt-1" />
                   <div>
                     <h3 className="font-bold mb-1 text-yellow-400">Call Us</h3>
-                    <p className="text-gray-300">+254 258 247 29<br />+254 269 368 75</p>
+                    <p className="text-gray-300">+254 258 647 29<br />+254 269 368 75</p>
                   </div>
                 </div>
                 
@@ -646,7 +646,7 @@ export default function App() {
             </div>
           </div>
           <p className="text-gray-300 mb-4">Empowering Kenya through Computer Education</p>
-          <p className="text-sm text-gray-400">© 2024 Naptech Computers. All rights reserved.</p>
+          <p className="text-sm text-gray-400">© 2025 Naptech Computers. All rights reserved.</p>
         </div>
       </footer>
     </div>
