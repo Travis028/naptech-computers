@@ -9,7 +9,10 @@ export default function App() {
   const [showEnrollForm, setShowEnrollForm] = useState(false);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [paymentLoading, setPaymentLoading] = useState(false);
-  const [paymentStatus, setPaymentStatus] = useState(null);
+  const [showWifiPayment, setShowWifiPayment] = useState(false);
+  const [selectedWifiPlan, setSelectedWifiPlan] = useState(null);
+  const [wifiCredentials, setWifiCredentials] = useState(null);
+  const [pendingApproval, setPendingApproval] = useState(false);
   const [enrollData, setEnrollData] = useState({
     name: '',
     email: '',
@@ -122,6 +125,41 @@ export default function App() {
     } finally {
       setPaymentLoading(false);
     }
+  };
+
+  const handleWifiPurchase = (plan) => {
+    setSelectedWifiPlan(plan);
+    setShowWifiPayment(true);
+  };
+
+  const handleWifiPaymentComplete = () => {
+    setPendingApproval(true);
+    setShowWifiPayment(false);
+    
+    // Simulate admin approval process
+    setTimeout(() => {
+      const credentials = {
+        network: 'NAPTECH_WiFi',
+        password: `NTC${Math.random().toString(36).substr(2, 6).toUpperCase()}`,
+        duration: selectedWifiPlan.time,
+        expires: new Date(Date.now() + getPackageDuration(selectedWifiPlan.time)).toLocaleString()
+      };
+      setWifiCredentials(credentials);
+      setPendingApproval(false);
+      alert(`WiFi access approved! Network: ${credentials.network}, Password: ${credentials.password}`);
+    }, 5000); // 5 second approval simulation
+  };
+
+  const getPackageDuration = (timeStr) => {
+    const timeMap = {
+      '30 Minutes': 30 * 60 * 1000,
+      '1 Hour': 60 * 60 * 1000,
+      '2 Hours': 2 * 60 * 60 * 1000,
+      '5 Hours': 5 * 60 * 60 * 1000,
+      'Full Day': 24 * 60 * 60 * 1000,
+      'Weekly Pass': 7 * 24 * 60 * 60 * 1000
+    };
+    return timeMap[timeStr] || 60 * 60 * 1000;
   };
 
   const handlePaymentComplete = () => {
@@ -318,7 +356,13 @@ export default function App() {
                 )}
                 <plan.icon className="w-10 h-10 text-yellow-400 mb-3" />
                 <div className="text-3xl font-bold mb-2 text-yellow-400">{plan.price}</div>
-                <div className="text-gray-300 text-lg">{plan.time}</div>
+                <div className="text-gray-300 text-lg mb-4">{plan.time}</div>
+                <button
+                  onClick={() => handleWifiPurchase(plan)}
+                  className="w-full bg-gradient-to-r from-green-500 to-green-600 py-2 rounded-lg font-semibold hover:shadow-lg transition-all text-white"
+                >
+                  Purchase Package
+                </button>
               </div>
             ))}
           </div>
@@ -573,7 +617,119 @@ export default function App() {
         </div>
       )}
 
-      {/* Payment Modal */}
+      {/* WiFi Approval Status Modal */}
+      {pendingApproval && (
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50">
+          <div className="bg-gradient-to-br from-indigo-900 to-purple-900 p-8 rounded-2xl border-2 border-yellow-400 max-w-md w-full">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-yellow-400 mx-auto mb-6"></div>
+              <h3 className="text-2xl font-bold text-yellow-400 mb-4">Payment Under Review</h3>
+              <p className="text-gray-300 mb-4">
+                Our team is verifying your M-Pesa payment. You will receive WiFi credentials once approved.
+              </p>
+              <div className="bg-blue-500/10 border border-blue-500/30 p-4 rounded-lg">
+                <p className="text-blue-400 text-sm">
+                  🕰️ This usually takes 2-5 minutes. Please wait...
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* WiFi Credentials Modal */}
+      {wifiCredentials && (
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50">
+          <div className="bg-gradient-to-br from-indigo-900 to-purple-900 p-8 rounded-2xl border-2 border-green-400 max-w-md w-full">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-2xl font-bold text-green-400">WiFi Access Approved! ✅</h3>
+              <button onClick={() => setWifiCredentials(null)}>
+                <X className="w-6 h-6 text-gray-400 hover:text-white" />
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              <div className="bg-green-500/10 border border-green-500/30 p-6 rounded-lg">
+                <h4 className="text-green-400 font-bold text-lg mb-4">Your WiFi Credentials</h4>
+                <div className="space-y-3">
+                  <div>
+                    <p className="text-sm text-gray-400">Network Name:</p>
+                    <p className="text-xl font-bold text-yellow-400">{wifiCredentials.network}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-400">Password:</p>
+                    <p className="text-xl font-bold text-yellow-400 font-mono">{wifiCredentials.password}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-400">Duration:</p>
+                    <p className="text-lg text-white">{wifiCredentials.duration}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-400">Expires:</p>
+                    <p className="text-sm text-gray-300">{wifiCredentials.expires}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-blue-500/10 border border-blue-500/30 p-4 rounded-lg">
+                <p className="text-blue-400 text-sm">
+                  📝 <strong>Instructions:</strong> Connect to the network and enter the password above. 
+                  Your access will automatically expire after the duration.
+                </p>
+              </div>
+
+              <button
+                onClick={() => {
+                  setWifiCredentials(null);
+                  setSelectedWifiPlan(null);
+                }}
+                className="w-full bg-gradient-to-r from-green-500 to-green-600 py-3 rounded-lg font-bold text-lg hover:shadow-lg transition-all text-white"
+              >
+                Got It!
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {showWifiPayment && selectedWifiPlan && (
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50">
+          <div className="bg-gradient-to-br from-indigo-900 to-purple-900 p-8 rounded-2xl border-2 border-yellow-400 max-w-md w-full">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-2xl font-bold text-yellow-400">WiFi Payment</h3>
+              <button onClick={() => setShowWifiPayment(false)}>
+                <X className="w-6 h-6 text-gray-400 hover:text-white" />
+              </button>
+            </div>
+
+            <div className="space-y-6">
+              <div className="bg-yellow-500/10 border border-yellow-500/30 p-4 rounded-lg">
+                <p className="text-yellow-400 font-semibold mb-2">WiFi Package: {selectedWifiPlan.time}</p>
+                <p className="text-3xl font-bold text-yellow-400">{selectedWifiPlan.price}</p>
+              </div>
+
+              <div className="bg-green-500/10 border border-green-500/30 p-6 rounded-lg">
+                <h4 className="text-green-400 font-bold text-lg mb-4">M-Pesa Payment</h4>
+                <div className="text-sm space-y-2">
+                  <p>• Business No: <span className="text-yellow-400 font-bold">880100</span></p>
+                  <p>• Account No: <span className="text-yellow-400 font-bold">1006171042</span></p>
+                  <p>• Amount: <span className="text-yellow-400 font-bold">{selectedWifiPlan.price.replace('KSh ', '')}</span></p>
+                </div>
+              </div>
+
+              <button
+                onClick={handleWifiPaymentComplete}
+                className="w-full bg-gradient-to-r from-green-500 to-green-600 py-4 rounded-lg font-bold text-lg hover:shadow-lg transition-all text-white"
+              >
+                Submit Payment for Approval
+              </button>
+              
+              <div className="text-center text-sm text-gray-400">
+                📝 Payment will be verified by our team before WiFi access is granted
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       {showPaymentModal && (
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50">
           <div className="bg-gradient-to-br from-indigo-900 to-purple-900 p-8 rounded-2xl border-2 border-yellow-400 max-w-md w-full">
