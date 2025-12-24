@@ -7,6 +7,7 @@ export default function App() {
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
   const [showEnrollForm, setShowEnrollForm] = useState(false);
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [enrollData, setEnrollData] = useState({
     name: '',
     email: '',
@@ -89,8 +90,13 @@ export default function App() {
       alert('Please fill in all required fields');
       return;
     }
-    alert(`Thank you ${enrollData.name}! We'll contact you at ${enrollData.phone} to confirm your enrollment.`);
     setShowEnrollForm(false);
+    setShowPaymentModal(true);
+  };
+
+  const handlePaymentComplete = () => {
+    alert(`Thank you ${enrollData.name}! We'll contact you at ${enrollData.phone} to confirm your enrollment.`);
+    setShowPaymentModal(false);
     setEnrollData({ name: '', email: '', phone: '', course: 'basic-computer' });
   };
 
@@ -538,7 +544,72 @@ export default function App() {
         </div>
       )}
 
-      {/* Contact Section */}
+      {/* Payment Modal */}
+      {showPaymentModal && (
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50">
+          <div className="bg-gradient-to-br from-indigo-900 to-purple-900 p-8 rounded-2xl border-2 border-yellow-400 max-w-md w-full">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-2xl font-bold text-yellow-400">Payment Information</h3>
+              <button onClick={() => setShowPaymentModal(false)}>
+                <X className="w-6 h-6 text-gray-400 hover:text-white" />
+              </button>
+            </div>
+
+            <div className="space-y-6">
+              <div className="bg-yellow-500/10 border border-yellow-500/30 p-4 rounded-lg">
+                <p className="text-yellow-400 font-semibold mb-2">Course Fee: KSh 4,500</p>
+                <p className="text-sm text-gray-300">Basic Computer Course - 3 Months</p>
+              </div>
+
+              <div className="bg-green-500/10 border border-green-500/30 p-6 rounded-lg">
+                <h4 className="text-green-400 font-bold text-lg mb-4 flex items-center gap-2">
+                  📱 M-Pesa Payment Options
+                </h4>
+                
+                <div className="space-y-4">
+                  <div className="bg-indigo-950/50 p-4 rounded-lg">
+                    <h5 className="text-yellow-400 font-semibold mb-2">Option 1: Lipa na M-Pesa Paybill</h5>
+                    <div className="text-sm space-y-1">
+                      <p>• Go to M-Pesa menu</p>
+                      <p>• Select "Lipa na M-Pesa"</p>
+                      <p>• Select "Pay Bill"</p>
+                      <p>• Business No: <span className="text-yellow-400 font-bold">880100</span></p>
+                      <p>• Account No: <span className="text-yellow-400 font-bold">1006171042</span></p>
+                      <p>• Amount: <span className="text-yellow-400 font-bold">4500</span></p>
+                      <p>• Enter your M-Pesa PIN</p>
+                    </div>
+                  </div>
+
+                  <div className="bg-indigo-950/50 p-4 rounded-lg">
+                    <h5 className="text-yellow-400 font-semibold mb-2">Option 2: M-Pesa Agent</h5>
+                    <div className="text-sm space-y-1">
+                      <p>• Visit any M-Pesa agent</p>
+                      <p>• Agent Number: <span className="text-yellow-400 font-bold">2936859</span></p>
+                      <p>• Store Number: <span className="text-yellow-400 font-bold">2936758</span></p>
+                      <p>• Amount: <span className="text-yellow-400 font-bold">KSh 4,500</span></p>
+                      <p>• Provide your phone number</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-4 p-3 bg-blue-500/10 border border-blue-500/30 rounded-lg">
+                  <p className="text-blue-400 text-sm">
+                    💡 <strong>Important:</strong> After payment, you'll receive an M-Pesa confirmation message. 
+                    Please keep this message as proof of payment.
+                  </p>
+                </div>
+              </div>
+
+              <button
+                onClick={handlePaymentComplete}
+                className="w-full bg-gradient-to-r from-green-500 to-green-600 py-4 rounded-lg font-bold text-lg hover:shadow-lg transition-all text-white"
+              >
+                I Have Made Payment
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       <section id="contact" className="py-16 px-4 sm:px-6 lg:px-8 bg-indigo-950/50">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl font-bold text-center mb-12 text-yellow-400">Visit Naptech Computers</h2>
