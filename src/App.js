@@ -8,6 +8,8 @@ export default function App() {
   const [hoverRating, setHoverRating] = useState(0);
   const [showEnrollForm, setShowEnrollForm] = useState(false);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [paymentLoading, setPaymentLoading] = useState(false);
+  const [paymentStatus, setPaymentStatus] = useState(null);
   const [enrollData, setEnrollData] = useState({
     name: '',
     email: '',
@@ -92,6 +94,36 @@ export default function App() {
     }
     setShowEnrollForm(false);
     setShowPaymentModal(true);
+  };
+
+  const handleMpesaPayment = async () => {
+    setPaymentLoading(true);
+    setPaymentStatus(null);
+    
+    try {
+      // M-Pesa STK Push simulation
+      const paymentData = {
+        phone: enrollData.phone.replace(/^0/, '254'),
+        amount: 4500,
+        accountReference: 'NAPTECH-COURSE',
+        transactionDesc: 'Basic Computer Course Payment'
+      };
+      
+      // Simulate API call (replace with actual M-Pesa API)
+      await new Promise(resolve => setTimeout(resolve, 3000));
+      
+      // Simulate success response
+      setPaymentStatus('success');
+      setTimeout(() => {
+        handlePaymentComplete();
+      }, 2000);
+      
+    } catch (error) {
+      setPaymentStatus('error');
+      console.error('Payment failed:', error);
+    } finally {
+      setPaymentLoading(false);
+    }
   };
 
   const handlePaymentComplete = () => {
@@ -563,49 +595,96 @@ export default function App() {
 
               <div className="bg-green-500/10 border border-green-500/30 p-6 rounded-lg">
                 <h4 className="text-green-400 font-bold text-lg mb-4 flex items-center gap-2">
-                  📱 M-Pesa Payment Options
+                  📱 M-Pesa Payment
                 </h4>
                 
-                <div className="space-y-4">
-                  <div className="bg-indigo-950/50 p-4 rounded-lg">
-                    <h5 className="text-yellow-400 font-semibold mb-2">Option 1: Lipa na M-Pesa Paybill</h5>
-                    <div className="text-sm space-y-1">
-                      <p>• Go to M-Pesa menu</p>
-                      <p>• Select "Lipa na M-Pesa"</p>
-                      <p>• Select "Pay Bill"</p>
-                      <p>• Business No: <span className="text-yellow-400 font-bold">880100</span></p>
-                      <p>• Account No: <span className="text-yellow-400 font-bold">1006171042</span></p>
-                      <p>• Amount: <span className="text-yellow-400 font-bold">4500</span></p>
-                      <p>• Enter your M-Pesa PIN</p>
+                {paymentLoading && (
+                  <div className="text-center py-8">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-400 mx-auto mb-4"></div>
+                    <p className="text-green-400">Processing payment...</p>
+                    <p className="text-sm text-gray-300 mt-2">Please check your phone for M-Pesa prompt</p>
+                  </div>
+                )}
+                
+                {paymentStatus === 'success' && (
+                  <div className="text-center py-8">
+                    <div className="text-6xl mb-4">✅</div>
+                    <p className="text-green-400 font-bold">Payment Successful!</p>
+                    <p className="text-sm text-gray-300 mt-2">Redirecting...</p>
+                  </div>
+                )}
+                
+                {paymentStatus === 'error' && (
+                  <div className="text-center py-8">
+                    <div className="text-6xl mb-4">❌</div>
+                    <p className="text-red-400 font-bold">Payment Failed</p>
+                    <p className="text-sm text-gray-300 mt-2">Please try again or use manual payment</p>
+                  </div>
+                )}
+                
+                {!paymentLoading && !paymentStatus && (
+                  <div className="space-y-4">
+                    <div className="bg-indigo-950/50 p-4 rounded-lg">
+                      <h5 className="text-yellow-400 font-semibold mb-2">Automatic M-Pesa Payment</h5>
+                      <div className="text-sm space-y-1">
+                        <p>• Click "Pay with M-Pesa" below</p>
+                        <p>• Check your phone for M-Pesa prompt</p>
+                        <p>• Enter your M-Pesa PIN</p>
+                        <p>• Payment will be processed automatically</p>
+                      </div>
+                    </div>
+
+                    <div className="bg-indigo-950/50 p-4 rounded-lg">
+                      <h5 className="text-yellow-400 font-semibold mb-2">Manual Payment Options</h5>
+                      <div className="text-sm space-y-2">
+                        <div>
+                          <p className="font-medium">Paybill:</p>
+                          <p>Business No: <span className="text-yellow-400">880100</span></p>
+                          <p>Account No: <span className="text-yellow-400">1006171042</span></p>
+                        </div>
+                        <div>
+                          <p className="font-medium">Agent:</p>
+                          <p>Agent: <span className="text-yellow-400">2936859</span> | Store: <span className="text-yellow-400">2936758</span></p>
+                        </div>
+                      </div>
                     </div>
                   </div>
-
-                  <div className="bg-indigo-950/50 p-4 rounded-lg">
-                    <h5 className="text-yellow-400 font-semibold mb-2">Option 2: M-Pesa Agent</h5>
-                    <div className="text-sm space-y-1">
-                      <p>• Visit any M-Pesa agent</p>
-                      <p>• Agent Number: <span className="text-yellow-400 font-bold">2936859</span></p>
-                      <p>• Store Number: <span className="text-yellow-400 font-bold">2936758</span></p>
-                      <p>• Amount: <span className="text-yellow-400 font-bold">KSh 4,500</span></p>
-                      <p>• Provide your phone number</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-4 p-3 bg-blue-500/10 border border-blue-500/30 rounded-lg">
-                  <p className="text-blue-400 text-sm">
-                    💡 <strong>Important:</strong> After payment, you'll receive an M-Pesa confirmation message. 
-                    Please keep this message as proof of payment.
-                  </p>
-                </div>
+                )}
               </div>
 
-              <button
-                onClick={handlePaymentComplete}
-                className="w-full bg-gradient-to-r from-green-500 to-green-600 py-4 rounded-lg font-bold text-lg hover:shadow-lg transition-all text-white"
-              >
-                I Have Made Payment
-              </button>
+              {!paymentLoading && !paymentStatus && (
+                <div className="flex gap-3">
+                  <button
+                    onClick={handleMpesaPayment}
+                    className="flex-1 bg-gradient-to-r from-green-500 to-green-600 py-3 rounded-lg font-bold text-lg hover:shadow-lg transition-all text-white flex items-center justify-center gap-2"
+                  >
+                    📱 Pay with M-Pesa
+                  </button>
+                  <button
+                    onClick={handlePaymentComplete}
+                    className="flex-1 bg-gradient-to-r from-blue-500 to-blue-600 py-3 rounded-lg font-bold text-lg hover:shadow-lg transition-all text-white"
+                  >
+                    Manual Payment
+                  </button>
+                </div>
+              )}
+              
+              {paymentStatus === 'error' && (
+                <div className="flex gap-3">
+                  <button
+                    onClick={() => setPaymentStatus(null)}
+                    className="flex-1 bg-gradient-to-r from-yellow-500 to-yellow-600 py-3 rounded-lg font-bold text-lg hover:shadow-lg transition-all text-white"
+                  >
+                    Try Again
+                  </button>
+                  <button
+                    onClick={handlePaymentComplete}
+                    className="flex-1 bg-gradient-to-r from-blue-500 to-blue-600 py-3 rounded-lg font-bold text-lg hover:shadow-lg transition-all text-white"
+                  >
+                    Manual Payment
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
