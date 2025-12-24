@@ -52,10 +52,8 @@ export default function App() {
     'Typing Skills Development',
     'CV Writing & Formatting',
     'Social Media Basics',
-    'Computer Maintenance',
     'File Management',
     'Practical Hands-on Projects',
-    'Cybersecurity Essentials',
     'Data Analysis and Visualization'
   ];
 
@@ -378,7 +376,6 @@ export default function App() {
                     'Qualified instructors',
                     'Hands-on practical training',
                     'Certificate upon completion',
-                    'Job placement assistance',
                     'Lifetime support',
                     'Flexible class schedules'
                   ].map((benefit, idx) => (
